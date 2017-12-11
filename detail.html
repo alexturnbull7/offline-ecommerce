@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Boom Bikes - Peleton Triple Road Bike 2015</title>
+    <link href="css/fonts.css" rel="stylesheet">
+    <link type="text/css" rel="stylesheet" href="css/materialize.min.css" media="screen,projection" />
+    <link type="text/css" rel="stylesheet" href="css/styles.css" media="screen,projection" />
+    <script type="text/javascript" src="js/jquery-2.1.4.min.js"></script>
+    <script type="text/javascript" src="js/index.js"></script>
+    <script type="text/javascript" src="js/detail.js"></script>
+    <link rel="icon" type="image/png" href="images/favicon-32x32.png" sizes="32x32" />
+    <link rel="icon" type="image/png" href="images/favicon-16x16.png" sizes="16x16" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+</head>
+
+<body>
+
+    <div class="navbar-fixed">
+        <nav class="crc-blue">
+            <div class="nav-wrapper">
+                <a href="index.html" class="brand-logo"><img class="crc-logo" src="images/logo.png" /></a>
+                <ul id="nav-mobile" class="right">
+                    <li>
+                        <div>
+                            <a href="cart.html"><img class="cart" src="images/cart.png" /></a>
+                            <div id="cart-count-circle" class="cart-count-circle"><span id="cart-count" class="cart-count">2</span></div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+
+    <div class="container">
+        <div class="column">
+            <div class="col s12 m6">
+                <div class="card">
+                    <div class="card-content">
+                        <span id="name" class="smaller-title card-title activator grey-text text-darken-4">Peloton Triple Road Bike 2015</span>
+                        <p class="manufacturer"><i>by Cube</i></p>
+                        <p><b id="price" class="price">&pound;379.99</b>
+                            <span class="right">
+                <i class="material-icons rating">favorite favorite favorite favorite favorite_border</i>
+              </span>
+                        </p>
+                    </div>
+                    <div class="card-image waves-effect waves-block waves-light">
+                        <img id="image" class="activator" src="images/bike.jpeg" />
+                    </div>
+                    <div class="card-content">
+                        <p><b>Sizes</b></p>
+                        <select id="size-select" class="browser-default">
+                            <option value="47cm">47cm</option>
+                            <option value="50cm">50cm</option>
+                            <option value="53cm">53cm</option>
+                            <option value="56cm">56cm</option>
+                            <option value="58cm">58cm</option>
+                            <option value="60cm">60cm</option>
+                        </select>
+                        <p><b>Colours</b></p>
+                        <select id="colour-select" class="browser-default">
+                            <option value="red">Red</option>
+                            <option value="black">Black</option>
+                            <option value="blue">Blue</option>
+                        </select>
+                    </div>
+                    <div class="card-action">
+                        <a onclick="addToCart();" href="cart.html">Add to cart</a>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-content">
+                        <span class="smaller-title card-title activator grey-text text-darken-4">Reviews</span>
+                        <p>No reviews for this product</p>
+                    </div>
+                    <div class="card-action">
+                        <a href="#">Add a review</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script type="text/javascript" src="js/materialize.min.js"></script>
+</body>
+
+</html>

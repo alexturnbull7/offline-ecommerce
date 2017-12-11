@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Boom Bikes - Cart</title>
+    <link href="css/fonts.css" rel="stylesheet">
+    <link type="text/css" rel="stylesheet" href="css/materialize.min.css" media="screen,projection" />
+    <link type="text/css" rel="stylesheet" href="css/styles.css" media="screen,projection" />
+    <script type="text/javascript" src="js/jquery-2.1.4.min.js"></script>
+    <script type="text/javascript" src="js/index.js"></script>
+    <script type="text/javascript" src="js/cart.js"></script>
+    <link rel="icon" type="image/png" href="images/favicon-32x32.png" sizes="32x32" />
+    <link rel="icon" type="image/png" href="images/favicon-16x16.png" sizes="16x16" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+</head>
+
+<body>
+
+    <div class="navbar-fixed">
+        <nav class="crc-blue">
+            <div class="nav-wrapper">
+                <a href="index.html" class="brand-logo"><img class="crc-logo" src="images/logo.png" /></a>
+                <ul id="nav-mobile" class="right">
+                    <li>
+                        <div>
+                            <a href="#"><img class="cart" src="images/cart.png" /></a>
+                            <div id="cart-count-circle" class="cart-count-circle"><span id="cart-count" class="cart-count">0</span></div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+
+    <div class="container">
+        <div class="column">
+            <div class="col s12 m6">
+                <div id="cart-card" class="card">
+                    <div class="card-content">
+                        <span class="smaller-title card-title activator grey-text text-darken-4">Cart</span>
+                        <a class="right" href="#" onclick="clearCart();">CLEAR</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Modal Structure -->
+        <div id="modal1" class="modal">
+            <div class="modal-content">
+                <h5>Proceed to Checkout</h5>
+                <p id="checkout-text">Unfortunately, we can't process your order without internet connectivity. Would you like us to save your
+                    cart and notify you when your connection is restored so you can complete your order?
+                </p>
+            </div>
+            <div class="modal-footer">
+                <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Yes</a>
+                <a href="#!" class=" modal-action modal-close waves-effect waves-red btn-flat">No</a>
+            </div>
+        </div>
+        <script type="text/javascript" src="js/materialize.min.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Boom Bikes</title>
+    <link rel="manifest" href="manifest.json">
+    <script>
+        navigator.serviceWorker.register('sw.js').then(initialiseState);
+
+      window.addEventListener('load', function() {  
+            subscribe();  
+      });
+
+          // Once the service worker is registered set the initial state  
+    function initialiseState() {  
+      // We need the service worker registration to check for a subscription  
+      navigator.serviceWorker.ready.then(function(serviceWorkerRegistration) {  
+        // Do we already have a push message subscription?  
+        serviceWorkerRegistration.pushManager.getSubscription()  
+          .then(function(subscription) {  
+            // Enable any UI which subscribes / unsubscribes from  
+            // push messages.  
+
+            if (!subscription) {  
+              // We aren't subscribed to push, so set UI  
+              // to allow the user to enable push  
+              return;  
+            }
+
+            // Keep your server in sync with the latest subscriptionId
+            sendSubscriptionToServer(subscription);
+
+            // Set your UI to show they have subscribed for  
+            // push messages    
+            isPushEnabled = true;  
+          })  
+          .catch(function(err) {  
+            console.warn('Error during getSubscription()', err);  
+          });  
+      });  
+    }
+
+    function sendSubscriptionToServer(subscription) {
+        var notificationRequested = localStorage.getItem('notification') || '';
+        if (notificationRequested == '') {
+            console.log('Requesting notification');
+            localStorage.setItem('notification', 'requested');
+            var endpoint = subscription.endpoint;
+            console.log(endpoint);
+            var lastSlash = endpoint.lastIndexOf('/');
+            var id = endpoint.substring(lastSlash + 1);
+            console.log(id);
+            var xmlHttp = new XMLHttpRequest();
+            xmlHttp.open("GET", "https://crc-backend.herokuapp.com/notify/" + id, true);
+            xmlHttp.send();
+            console.log(xmlHttp.responseText);
+        } else {
+            console.log('Notification already requested');
+        }
+    }
+
+
+    function subscribe() {  
+  // Disable the button so it can't be changed while  
+
+  navigator.serviceWorker.ready.then(function(serviceWorkerRegistration) {  
+    serviceWorkerRegistration.pushManager.subscribe({userVisibleOnly: true})  
+      .then(function(subscription) {  
+        // The subscription was successful  
+        isPushEnabled = true;  
+
+        // TODO: Send the subscription.endpoint to your server  
+        // and save it to send a push message at a later date
+        return sendSubscriptionToServer(subscription);  
+      })  
+      .catch(function(e) {  
+        if (Notification.permission === 'denied') {  
+          // The user denied the notification permission which  
+          // means we failed to subscribe and the user will need  
+          // to manually change the notification permission to  
+          // subscribe to push messages  
+          console.warn('Permission for Notifications was denied');  
+        } else {  
+          // A problem occurred with the subscription; common reasons  
+          // include network errors, and lacking gcm_sender_id and/or  
+          // gcm_user_visible_only in the manifest.  
+          console.error('Unable to subscribe to push.', e);    
+        }  
+      });  
+  });  
+}
+    </script>
+    <link href="css/fonts.css" rel="stylesheet">
+    <link type="text/css" rel="stylesheet" href="css/materialize.min.css" media="screen,projection" />
+    <link type="text/css" rel="stylesheet" href="css/styles.css" media="screen,projection" />
+    <script type="text/javascript" src="js/jquery-2.1.4.min.js"></script>
+    <script type="text/javascript" src="js/index.js"></script>
+    <link rel="icon" type="image/png" href="images/favicon-32x32.png" sizes="32x32" />
+    <link rel="icon" type="image/png" href="images/favicon-16x16.png" sizes="16x16" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+</head>
+
+<body>
+
+    <div class="navbar-fixed">
+        <nav class="crc-blue">
+            <div class="nav-wrapper">
+                <a href="#" class="brand-logo"><img class="crc-logo" src="images/logo.png" /></a>
+                <ul id="nav-mobile" class="right">
+                    <li>
+                        <div>
+                            <a href="cart.html"><img class="cart" src="images/cart.png" /></a>
+                            <div id="cart-count-circle" class="cart-count-circle"><span id="cart-count" class="cart-count">2</span></div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+
+    <div class="container">
+        <div class="column">
+            <div class="col s12 m6">
+                <div class="card">
+                    <div class="card-image waves-effect waves-block waves-light">
+                        <img class="activator product-icon" style="background-image: url('images/bike.jpeg');" />
+                    </div>
+                    <div class="card-content">
+                        <span class="smaller-title card-title activator grey-text text-darken-4">Peloton Triple Road Bike 2015</span>
+                        <p class="price">&pound;379.99
+                            <span class="right">
+                <i class="material-icons rating">favorite favorite favorite favorite favorite_border</i>
+              </span>
+                        </p>
+                    </div>
+                    <div class="card-action">
+                        <a href="peloton-detail.html">View product</a>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-image waves-effect waves-block waves-light">
+                        <img class="activator product-icon" style="background-image: url('images/helmet.jpeg');" />
+                    </div>
+                    <div class="card-content">
+                        <span class="smaller-title card-title activator grey-text text-darken-4">Infinity Road Helmet</span>
+                        <p class="price">&pound;149.99
+                            <span class="right">
+                <i class="material-icons rating">favorite favorite favorite favorite favorite_border</i>
+              </span>
+                        </p>
+                    </div>
+                    <div class="card-action">
+                        <a href="helmet-detail.html">View product</a>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-image waves-effect waves-block waves-light">
+                        <img class="activator product-icon" style="background-image: url('images/bag.jpeg');" />
+                    </div>
+                    <div class="card-content">
+                        <span class="smaller-title card-title activator grey-text text-darken-4">Pro Bike Bag</span>
+                        <p class="price">&pound;174.99
+                            <span class="right">
+                <i class="material-icons rating">favorite favorite favorite favorite_border favorite_border</i>
+              </span>
+                        </p>
+                    </div>
+                    <div class="card-action">
+                        <a href="bag.html">View product</a>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-image waves-effect waves-block waves-light">
+                        <img class="activator product-icon" style="background-image: url('images/tshirt.jpeg');" />
+                    </div>
+                    <div class="card-content">
+                        <span class="smaller-title card-title activator grey-text text-darken-4">Womens Bonnie Tech Tee</span>
+                        <p class="price">&pound;17.99
+                            <span class="right">
+                <i class="material-icons rating">favorite favorite favorite favorite favorite</i>
+              </span>
+                        </p>
+                    </div>
+                    <div class="card-action">
+                        <a href="techtee.html">View product</a>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-image waves-effect waves-block waves-light">
+                        <img class="activator product-icon rating" style="background-image: url('images/trousers.jpeg');" />
+                    </div>
+                    <div class="card-content">
+                        <span class="smaller-title card-title activator grey-text text-darken-4">Sprint Pant Turismo 2015</span>
+                        <p class="price">&pound;83.99
+                            <span class="right">
+                <i class="material-icons rating">favorite favorite favorite favorite favorite</i>
+              </span>
+                        </p>
+                    </div>
+                    <div class="card-action">
+                        <a href="trousers.html">View product</a>
+                    </div>
+                </div>
+
+
+                <div class="card">
+                    <div class="card-image waves-effect waves-block waves-light">
+                        <img class="activator product-icon" style="background-image: url('images/pants.jpeg');" />
+                    </div>
+                    <div class="card-content">
+                        <span class="smaller-title card-title activator grey-text text-darken-4">Demo DH Pants</span>
+                        <p class="price">&pound;59.99
+                            <span class="right">
+                <i class="material-icons rating">favorite favorite favorite favorite_border favorite_border</i>
+              </span>
+                        </p>
+                    </div>
+                    <div class="card-action">
+                        <a href="pants.html">View product</a>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript" src="js/materialize.min.js"></script>
+    <script type="text/javascript" src="js/logging.js"></script>
+</body>
+
+</html>
